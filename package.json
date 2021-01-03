@@ -1,0 +1,26 @@
+{
+  "name": "deck-of-cards",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "poker": "tsc && node dist/main/app.js",
+    "test": "mocha -r ts-node/register src/test/**/*.ts"
+  },
+  "keywords": [],
+  "author": "Aaron Goff <aaron@willowtreeapps.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/axios": "^0.14.0",
+    "@types/chai": "^4.2.14",
+    "@types/mocha": "^8.2.0",
+    "chai": "^4.2.0",
+    "mocha": "^8.2.1",
+    "tslint": "^6.1.3",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "axios": "^0.21.1"
+  }
+}
