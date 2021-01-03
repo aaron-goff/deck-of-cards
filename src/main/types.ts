@@ -1,3 +1,4 @@
+// Based on response from API
 export type Deck = {
   success: boolean;
   deck_id: string;
@@ -5,6 +6,8 @@ export type Deck = {
   remaining: number;
 };
 
+// Based on response from API
+// Code and Image are unused in this app, but included for completeness
 export type Card = {
   code: string;
   image: string;
@@ -12,10 +15,12 @@ export type Card = {
   suit: Suits;
 };
 
+// Custom type to hold matches
 export type Matches = {
   [key: string]: number;
 };
 
+// List of possible suits of cards
 export enum Suits {
   SPADES,
   HEARTS,
@@ -23,6 +28,7 @@ export enum Suits {
   CLUBS,
 }
 
+// List of possible card values
 export enum CardValues {
   TWO = "2",
   THREE = "3",
@@ -39,6 +45,7 @@ export enum CardValues {
   ACE = "Ace",
 }
 
+// Potential hand types
 export enum Hands {
   STRAIGHT_FLUSH = "Straight Flush",
   FOUR_OF_A_KIND = "Four of a Kind",
@@ -51,6 +58,7 @@ export enum Hands {
   HIGH_CARD = "High Card",
 }
 
+// Custom type that combines the hand type with information about the hand
 export type HandWithInfo = {
   hand: Hands;
   pair?: string;

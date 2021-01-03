@@ -12,25 +12,31 @@ import {
 // variables
 var deckId: string;
 
+// Function to call the API for a new deck
 async function getNewDeck(count: number = 1) {
-  const response = await createNewShuffledDeck(count);
-  deckId = response.data.deck_id;
+  const deck = await createNewShuffledDeck(count);
+  deckId = deck.deck_id;
 }
 
+// Function to draw a new hand
 async function getNewHand() {
+  // Retrieve the deckId -- currently always will be null when run,
+  // but theoretically could change this in the future
   if (deckId == null) {
     console.log("Getting a freshly shuffled deck...");
     await getNewDeck();
   }
 
-  const response = await drawFive(deckId);
-  const cards = response.data.cards as Card[];
+  // Get the cards as typed Cards
+  const cards = await drawFive(deckId);
 
+  // Print out Cards that are drawn
   console.log("Your cards are:");
   for (const card of cards) {
     console.log(`${cardShort(card)} of ${formatSuit(card)}`);
   }
 
+  // Determine top scoring hand and stylize strings
   const bestHand = getTopScoringHand(cards);
   var highCardString = `, with high card: ${sentenceCase(
     bestHand.highCard.value
@@ -49,9 +55,11 @@ async function getNewHand() {
     )}s and a pair of ${sentenceCase(bestHand.pair)}s`;
   }
 
+  // Print out the stylized string
   console.log(
     `Your best hand is: ${bestHand.hand}${matchString}${highCardString}`
   );
 }
 
+// Run the function to print out cards and the highest scoring hand
 getNewHand();

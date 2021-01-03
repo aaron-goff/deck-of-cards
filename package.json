@@ -1,8 +1,8 @@
 {
   "name": "deck-of-cards",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Simple app to generate a new poker hand, written in TypeScript",
+  "main": "src/main/app.js",
   "scripts": {
     "poker": "tsc && node dist/main/app.js",
     "test": "mocha -r ts-node/register src/test/**/*.ts"

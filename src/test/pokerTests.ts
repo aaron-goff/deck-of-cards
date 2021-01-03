@@ -15,7 +15,7 @@ import { expect } from "chai";
 import "mocha";
 
 describe("Poker.ts Tests", () => {
-  // Testin Variables
+  // Testing Variables
   var hand: Array<Card>;
   const sixOfDiamonds = generateCard(Suits.DIAMONDS, CardValues.SIX);
 
@@ -25,6 +25,7 @@ describe("Poker.ts Tests", () => {
     value: CardValues = CardValues.TWO
   ): Card {
     return {
+      // Code and image are irrelevant for testing, so always setting them
       code: "1234",
       image: "http://image",
       suit: suit,
@@ -32,6 +33,7 @@ describe("Poker.ts Tests", () => {
     };
   }
 
+  // Generates a random card value if an index isn't provided
   function generateValue(index?: number): CardValues {
     const values = Object.keys(CardValues);
     if (index == null) {
@@ -40,25 +42,31 @@ describe("Poker.ts Tests", () => {
     return CardValues[values[index]];
   }
 
+  // Generates a card that ensures a hand of 5 is not a flush
   function generateNotFlushSuit(index: number) {
     return index == 0 ? Suits.CLUBS : Suits.DIAMONDS;
   }
 
+  // Adds a card to the `hand` variable
   function addCard(suit: Suits, value: CardValues) {
     hand.push(generateCard(suit, value));
   }
 
+  // Function that makes the hand to pass into the tests
   function makeHand(
     expectedHand: Hands,
     highCard: CardValues = CardValues.EIGHT
   ) {
+    // Loop to tell the function to keep adding cards
     while (hand.length < 5) {
+      // Card suit is determined by the expectedHand type
       const suit =
         expectedHand == Hands.FLUSH || expectedHand == Hands.STRAIGHT_FLUSH
           ? Suits.CLUBS
           : generateNotFlushSuit(hand.length);
 
       var value: CardValues;
+      // Card value is determined by hand.length and hand type
       switch (expectedHand) {
         case Hands.HIGH_CARD:
         case Hands.FLUSH:
@@ -98,14 +106,18 @@ describe("Poker.ts Tests", () => {
   }
 
   beforeEach(() => {
+    // Initialize hand before each test
     hand = new Array<Card>(0);
   });
 
   afterEach(() => {
+    // Clear hand after each test
     hand = Array<Card>(0);
   });
 
   describe("Top Scoring Hand Tests", () => {
+    // These tests are probably closer to integration tests
+    // They test that given a hand, we receive the correct highest scoring information
     it("Should Return High Card", () => {
       makeHand(Hands.HIGH_CARD);
 
@@ -206,6 +218,7 @@ describe("Poker.ts Tests", () => {
   });
 
   describe("Flush Tests", () => {
+    // These tests validate that the `isHandFlush` method works
     it("Should return Hand is Flush", () => {
       makeHand(Hands.FLUSH);
       const isFlush = isHandFlush(hand);
@@ -220,6 +233,7 @@ describe("Poker.ts Tests", () => {
   });
 
   describe("Straight Tests", () => {
+    // These tests validate that the `isHandStraight` function works
     it("Should return Hand is Straight", () => {
       makeHand(Hands.STRAIGHT);
       const isStraight = isHandStraight(hand);
@@ -234,6 +248,8 @@ describe("Poker.ts Tests", () => {
   });
 
   describe("High Card Tests", () => {
+    // Validates that the High Card function works
+    // In addition to the card number values test, I have confidence this function works
     it("Should return High Card of Ace", () => {
       makeHand(Hands.HIGH_CARD, CardValues.ACE);
 
@@ -243,6 +259,7 @@ describe("Poker.ts Tests", () => {
   });
 
   describe("Hand Matches and Match Type Tests", () => {
+    // These test validate the match types
     it("Should return One Pair", () => {
       makeHand(Hands.ONE_PAIR);
 
@@ -334,6 +351,7 @@ describe("Poker.ts Tests", () => {
   });
 
   describe("Card Number Value Tests", () => {
+    // Test validates that the card number values are translated correctly
     it("Should return the correct Card Number Values", () => {
       const cardValuesArray = Object.keys(CardValues);
       for (var i = 0; i < cardValuesArray.length; i++) {
